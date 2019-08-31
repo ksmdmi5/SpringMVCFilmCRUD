@@ -155,7 +155,7 @@ public class FilmDAOImpl implements FilmDAO {
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
 			String sql = "SELECT actor.id, actor.first_name, actor.last_name, "
-					+ "FROM film JOIN film_actor ON film.id = film_actor.film_id"
+					+ "FROM film JOIN film_actor ON film.id = film_actor.film_id "
 					+ "JOIN actor ON film_actor.actor_id = actor.id " + "WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
@@ -233,4 +233,45 @@ public class FilmDAOImpl implements FilmDAO {
 		}
 		return film;
 	}
-}
+
+	@Override
+	public boolean deleteFilm(int filmId) {
+		String user = "student";
+		String pass = "student";
+		int uc = 0;
+		boolean isDeleted = true;
+			Film newFilm = null;
+			Connection conn = null;
+			int newFilmId = 0;
+			try {
+				conn = DriverManager.getConnection(url, user, pass);
+				conn.setAutoCommit(false);
+				String sql = "DELETE FROM film WHERE id = ?";
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, filmId);
+				uc = stmt.executeUpdate();
+			} catch (SQLException e) {
+				System.err.println("Error during inserts.");
+				e.printStackTrace();
+
+				if (conn != null) {
+					try {
+						conn.rollback();
+					} catch (SQLException e1) {
+						System.err.println("Error rolling back.");
+						e1.printStackTrace();
+					}
+				}
+			} finally {
+				try {
+					conn.commit();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					isDeleted = false;
+				}
+			}
+			return isDeleted;
+		}
+	}
+
