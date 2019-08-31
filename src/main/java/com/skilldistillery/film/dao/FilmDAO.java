@@ -11,4 +11,6 @@ public interface FilmDAO {
 	public Film getFilmById(int filmId);
 	public List<Film> findFilmByKey(String key);
 	public List<Actor> findActorByFilm(int filmId);
+	public String findCategory(int filmId);
+	public Film addNewFilm(Film film);
 }

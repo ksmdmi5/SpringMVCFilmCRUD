@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class FilmDAOImpl implements FilmDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public Film getFilmById(int filmId) {
 		Film film = null;
@@ -42,7 +43,7 @@ public class FilmDAOImpl implements FilmDAO {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				filmId = rs.getInt("film.id");
 				String title = rs.getString("film.title");
 				String description = rs.getString("film.description");
@@ -56,12 +57,12 @@ public class FilmDAOImpl implements FilmDAO {
 				String specFeatures = rs.getString("film.special_features");
 				List<Actor> actors = findActorByFilm(filmId);
 				String category = findCategory(filmId);
-				if(category.isEmpty()) {
+				if (category.isEmpty()) {
 					category = "No category found";
 				}
-				film = new Film(filmId, description, releaseYr, langId, rentalDur, rentalRate, 
-						length, replaceCost, rating, specFeatures, actors, category);
-				System.out.println(film);	
+				film = new Film(filmId, title, description, releaseYr, langId, rentalDur, rentalRate, length,
+						replaceCost, rating, specFeatures, actors, category);
+				System.out.println(film);
 			}
 			rs.close();
 			stmt.close();
@@ -72,14 +73,14 @@ public class FilmDAOImpl implements FilmDAO {
 		return film;
 	}
 
-	private String findCategory(int filmId) {
+	@Override
+	public String findCategory(int filmId) {
 		String category = "";
 		String user = "student";
 		String pass = "student";
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
-			String sql = "SELECT film.id, category.name FROM film "
-					+ "JOIN category WHERE film.id = category.id AND "
+			String sql = "SELECT film.id, category.name FROM film " + "JOIN category WHERE film.id = category.id AND "
 					+ " film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
@@ -108,14 +109,13 @@ public class FilmDAOImpl implements FilmDAO {
 			String sql = "SELECT film.id, film.title, film.description, film.release_year, "
 					+ "film.language_id, film.rental_duration, ";
 			sql += " film.rental_rate, film.length, film.replacement_cost, film.rating, "
-					+ " film.special_features FROM film WHERE (film.title LIKE ?) OR "
-					+ " (film.description LIKE ?)";
+					+ " film.special_features FROM film WHERE (film.title LIKE ?) OR " + " (film.description LIKE ?)";
 			System.out.println(sql);
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, '%' + key + '%');
 			stmt.setString(2, '%' + key + '%');
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				int filmId = rs.getInt("film.id");
 				String title = rs.getString("film.title");
 				String description = rs.getString("film.description");
@@ -129,17 +129,17 @@ public class FilmDAOImpl implements FilmDAO {
 				String specFeatures = rs.getString("film.special_features");
 				List<Actor> actors = findActorByFilm(filmId);
 				String category = findCategory(filmId);
-				if(category.isEmpty()) {
+				if (category.isEmpty()) {
 					category = "No category found";
 				}
-				film = new Film(filmId, description, releaseYr, langId, rentalDur, rentalRate, 
-						length, replaceCost, rating, specFeatures, actors, category);
+				film = new Film(filmId, title, description, releaseYr, langId, rentalDur, rentalRate, length,
+						replaceCost, rating, specFeatures, actors, category);
 				System.out.println(film);
 			}
 			rs.close();
 			stmt.close();
 			conn.close();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return films;
@@ -156,8 +156,7 @@ public class FilmDAOImpl implements FilmDAO {
 			Connection conn = DriverManager.getConnection(url, user, pass);
 			String sql = "SELECT actor.id, actor.first_name, actor.last_name, "
 					+ "FROM film JOIN film_actor ON film.id = film_actor.film_id"
-					+ "JOIN actor ON film_actor.actor_id = actor.id "
-					+ "WHERE film.id = ?";
+					+ "JOIN actor ON film_actor.actor_id = actor.id " + "WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet actorResult = stmt.executeQuery();
@@ -177,4 +176,61 @@ public class FilmDAOImpl implements FilmDAO {
 		return actors;
 	}
 
+//	film.id, film.title, film.description, film.release_year, "
+//			+ "film.language_id, film.rental_duration, ";
+//	sql += " film.rental_rate, film.length, film.replacement_cost, film.rating, "
+	@Override
+	public Film addNewFilm(Film film) {
+		String user = "student";
+		String pass = "student";
+		{
+			Film newFilm = null;
+			Connection conn = null;
+			int newFilmId = 0;
+			try {
+				conn = DriverManager.getConnection(url, user, pass);
+				conn.setAutoCommit(false);
+				String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, "
+						+ "rental_rate, length, replacement_cost, rating) VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?)";
+				PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, film.getTitle());
+				stmt.setString(2, film.getDescription());
+				stmt.setInt(3, film.getReleaseYr());
+//				stmt.setInt(4, film.getLangId());
+				stmt.setInt(4, film.getRentalDur());
+				stmt.setDouble(5, film.getRentalRate());
+				stmt.setInt(6, film.getLength());
+				stmt.setDouble(7, film.getReplaceCost());
+				stmt.setString(8, film.getRating());
+
+				int uc = stmt.executeUpdate();
+
+				ResultSet keys = stmt.getGeneratedKeys();
+				if (keys.next()) {
+					int newId = keys.getInt(1);
+
+				}
+			} catch (SQLException e) {
+				System.err.println("Error during inserts.");
+				e.printStackTrace();
+
+				if (conn != null) {
+					try {
+						conn.rollback();
+					} catch (SQLException e1) {
+						System.err.println("Error rolling back.");
+						e1.printStackTrace();
+					}
+				}
+			} finally {
+				try {
+					conn.commit();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return film;
+	}
 }

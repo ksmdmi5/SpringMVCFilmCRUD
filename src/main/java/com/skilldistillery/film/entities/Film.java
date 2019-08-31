@@ -56,7 +56,7 @@ public class Film {
 		this.category = category;
 	}
 
-	public Film(int filmId, String description, int releaseYr, int langId, int rentalDur, double rentalRate,
+	public Film(int filmId, String title, String description, int releaseYr, int langId, int rentalDur, double rentalRate,
 			int length, double replaceCost, String rating, String specFeatures, List<Actor> actors,
 			String category) {
 		this.filmId = filmId;
@@ -129,10 +129,10 @@ public class Film {
 	public void setLangId(int langId) {
 		this.langId = langId;
 	}
-	public int getrentalDur() {
+	public int getRentalDur() {
 		return rentalDur;
 	}
-	public void setrentalDur(int rentalDur) {
+	public void setRentalDur(int rentalDur) {
 		this.rentalDur = rentalDur;
 	}
 	public double getRentalRate() {
