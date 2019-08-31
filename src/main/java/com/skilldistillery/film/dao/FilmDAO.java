@@ -1,5 +1,14 @@
 package com.skilldistillery.film.dao;
 
-public interface FilmDAO {
+import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+import com.skilldistillery.film.entities.*;
+
+@Component
+public interface FilmDAO {
+	public Film getFilmById(int filmId);
+	public List<Film> findFilmByKey(String key);
+	public List<Actor> findActorByFilm(int filmId);
 }
