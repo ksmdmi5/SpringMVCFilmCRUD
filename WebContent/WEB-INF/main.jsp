@@ -11,8 +11,13 @@
 ${film.title}
 ${film.filmId}
 <br>
+	<form action="updateFilm.do" method="POST">
+Enter Film ID to Update:
+<input type="text" name="filmId"/>
+<input type="submit" value="Submit Id"/>
+</form>
 	<form action="deleteFilm.do" method="POST">
-Enter Film ID:
+Enter Film ID to Delete:
 <input type="text" name="filmId"/>
 <input type="submit" value="Submit Id"/>
 </form>
