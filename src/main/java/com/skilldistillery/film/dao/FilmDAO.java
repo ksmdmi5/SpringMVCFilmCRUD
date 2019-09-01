@@ -14,4 +14,7 @@ public interface FilmDAO {
 	public String findCategory(int filmId);
 	public Film addNewFilm(Film film);
 	public boolean deleteFilm (int filmId);
+	
+	
+	boolean updateFilm(Film film);
 }

@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Deleted Film</title>
+<title>Insert title here</title>
 </head>
 <body>
-Deleted
+Film Updated
 
 <a href="index.html">Return home.</a>
-
 </body>
 </html>

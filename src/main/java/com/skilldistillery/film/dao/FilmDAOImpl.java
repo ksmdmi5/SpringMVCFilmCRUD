@@ -191,6 +191,8 @@ public class FilmDAOImpl implements FilmDAO {
 				String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, "
 						+ "rental_rate, length, replacement_cost, rating) VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?)";
 				PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				
+				
 				stmt.setString(1, film.getTitle());
 				stmt.setString(2, film.getDescription());
 				stmt.setInt(3, film.getReleaseYr());
@@ -270,5 +272,56 @@ public class FilmDAOImpl implements FilmDAO {
 			}
 			return isDeleted;
 		}
+	@Override
+	public boolean updateFilm(Film film) {
+		String user = "student";
+		String pass = "student";
+		int uc = 0;
+		boolean isUpdated = true;
+		Connection conn = null;
+		int newFilmId = 0;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
+			String sql = "UPDATE film SET title=?, description=?, "
+					+ " release_year=?, language_id=?, "
+					+ " rental_duration=?, rental_rate= , "
+					+ " length=?, replacement_cost=?, rating=? "
+					+ " where id=?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYr());
+			stmt.setInt(4, film.getlangId());
+			stmt.setInt(5, film.getRentalDur());
+			stmt.setDouble(6, film.getRentalRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplaceCost());
+			stmt.setString(9, film.getRating());
+			stmt.setInt(10, film.getFilmId());
+			uc = stmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("Error during inserts.");
+			e.printStackTrace();
+			
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
+		} finally {
+			try {
+				conn.commit();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				isUpdated = false;
+			}
+		}
+		return isUpdated;
+	}
 	}
 

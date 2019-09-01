@@ -1,7 +1,5 @@
 package com.skilldistillery.film.controllers;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +18,19 @@ public class FilmController {
 
 	@Autowired
 	private FilmDAO filmDAO;
-	
-	@RequestMapping(path="GetFilmById.do",
-			params="filmId",
-			method= RequestMethod.GET)
-	
+
+	@RequestMapping(path = "GetFilmById.do", params = "filmId", method = RequestMethod.GET)
+
 	public ModelAndView getFilmId(@RequestParam("filmId") String n) {
 		int filmId = Integer.parseInt(n);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/main.jsp");
 		mv.addObject("film", filmDAO.getFilmById(filmId));
-		
+
 		return mv;
 	}
-	
-	@RequestMapping(path="findFilmByKey.do", method = RequestMethod.GET)
+
+	@RequestMapping(path = "findFilmByKey.do", method = RequestMethod.GET)
 	public ModelAndView findFilmByKey(String key) {
 		ModelAndView mv = new ModelAndView();
 		List<Film> films = filmDAO.findFilmByKey(key);
@@ -42,9 +38,8 @@ public class FilmController {
 		mv.setViewName("WEB-INF/displayKeySearch.jsp");
 		return mv;
 	}
-	
-	@RequestMapping(path="AddFilm.do",
-			method= RequestMethod.GET)
+
+	@RequestMapping(path = "AddFilm.do", method = RequestMethod.GET)
 	public ModelAndView addNewFilm() {
 		ModelAndView mv = new ModelAndView();
 		Film f = new Film();
@@ -52,16 +47,17 @@ public class FilmController {
 		mv.setViewName("WEB-INF/update.jsp");
 		return mv;
 	}
-	@RequestMapping(path="AddFilm.do", method=RequestMethod.POST)
-	public ModelAndView create (Film f) {
+
+	@RequestMapping(path = "AddFilm.do", method = RequestMethod.POST)
+	public ModelAndView create(Film f) {
 		filmDAO.addNewFilm(f);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("newFilm", f);
 		mv.setViewName("WEB-INF/view-update.jsp");
-	    return mv;
-	  }
-	
-	@RequestMapping(path = "deleteFilm.do", params="filmId", method = RequestMethod.POST)
+		return mv;
+	}
+
+	@RequestMapping(path = "deleteFilm.do", params = "filmId", method = RequestMethod.POST)
 	public ModelAndView deleteFilm(@RequestParam Integer filmId) {
 		ModelAndView mv = new ModelAndView();
 		boolean deletedFilm = filmDAO.deleteFilm(filmId);
@@ -72,6 +68,26 @@ public class FilmController {
 		}
 		return mv;
 	}
-	
-	
+
+	@RequestMapping(path = "editFilm.do", method = RequestMethod.POST)
+	public ModelAndView updateFilm(Film s) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("updateFilm", s);
+		mv.setViewName("WEB-INF/updatedFilm.jsp");
+		filmDAO.updateFilm(s);
+
+		return mv;
+	}
+
+	@RequestMapping(path = "updateForm.do", params = "filmId", method = RequestMethod.GET)
+
+	public ModelAndView getFilmIdForm(@RequestParam("filmId") String n) {
+		int filmId = Integer.parseInt(n);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/editFilm.jsp");
+		mv.addObject("updateFilm", filmDAO.getFilmById(filmId));
+
+		return mv;
+	}
+
 }
