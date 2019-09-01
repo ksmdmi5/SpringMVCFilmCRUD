@@ -2,6 +2,8 @@ package com.skilldistillery.film.controllers;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -29,6 +31,15 @@ public class FilmController {
 		mv.setViewName("WEB-INF/main.jsp");
 		mv.addObject("film", filmDAO.getFilmById(filmId));
 		
+		return mv;
+	}
+	
+	@RequestMapping(path="findFilmByKey.do", method = RequestMethod.GET)
+	public ModelAndView findFilmByKey(String key) {
+		ModelAndView mv = new ModelAndView();
+		List<Film> films = filmDAO.findFilmByKey(key);
+		mv.addObject("films", films);
+		mv.setViewName("WEB-INF/displayKeySearch.jsp");
 		return mv;
 	}
 	

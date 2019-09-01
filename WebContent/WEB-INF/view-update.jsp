@@ -8,13 +8,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Add New Film</title>
 </head>
 <body>
+ID: ${newFilm.id }
 ${newFilm.title}
 ${newFilm.description}
 ${newFilm.releaseYr}
-
+${newFilm.rating }
+${newFilm.rentalDur }
+${newFilm.rentalRate }
+${newFilm.length }
+${newFilm.replaceCost }
+${newFilm.category }
 
 </body>
 </html>

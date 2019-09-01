@@ -85,7 +85,6 @@ public class FilmDAOImpl implements FilmDAO {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet categoryResult = stmt.executeQuery();
-			stmt.setInt(1, filmId);
 			while (categoryResult.next()) {
 				category = categoryResult.getString("category.name");
 			}
@@ -109,7 +108,8 @@ public class FilmDAOImpl implements FilmDAO {
 			String sql = "SELECT film.id, film.title, film.description, film.release_year, "
 					+ "film.language_id, film.rental_duration, ";
 			sql += " film.rental_rate, film.length, film.replacement_cost, film.rating, "
-					+ " film.special_features FROM film WHERE (film.title LIKE ?) OR " + " (film.description LIKE ?)";
+					+ " film.special_features FROM film WHERE (title LIKE ?) OR "
+					+ " (description LIKE ?)";
 			System.out.println(sql);
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, '%' + key + '%');
@@ -134,7 +134,8 @@ public class FilmDAOImpl implements FilmDAO {
 				}
 				film = new Film(filmId, title, description, releaseYr, langId, rentalDur, rentalRate, length,
 						replaceCost, rating, specFeatures, actors, category);
-				System.out.println(film);
+				films.add(film);
+//				System.out.println(film);
 			}
 			rs.close();
 			stmt.close();
@@ -176,9 +177,6 @@ public class FilmDAOImpl implements FilmDAO {
 		return actors;
 	}
 
-//	film.id, film.title, film.description, film.release_year, "
-//			+ "film.language_id, film.rental_duration, ";
-//	sql += " film.rental_rate, film.length, film.replacement_cost, film.rating, "
 	@Override
 	public Film addNewFilm(Film film) {
 		String user = "student";
@@ -196,7 +194,6 @@ public class FilmDAOImpl implements FilmDAO {
 				stmt.setString(1, film.getTitle());
 				stmt.setString(2, film.getDescription());
 				stmt.setInt(3, film.getReleaseYr());
-//				stmt.setInt(4, film.getLangId());
 				stmt.setInt(4, film.getRentalDur());
 				stmt.setDouble(5, film.getRentalRate());
 				stmt.setInt(6, film.getLength());
