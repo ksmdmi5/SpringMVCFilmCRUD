@@ -6,8 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Update Film</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Update Film</title>
 </head>
 <body>
 

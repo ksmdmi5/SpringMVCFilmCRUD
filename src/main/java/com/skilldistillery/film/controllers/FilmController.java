@@ -74,8 +74,12 @@ public class FilmController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("updateFilm", s);
 		mv.setViewName("WEB-INF/updatedFilm.jsp");
-		filmDAO.updateFilm(s);
-
+		boolean updatedFilm = filmDAO.updateFilm(s);
+		if (updatedFilm) {
+			mv.setViewName("WEB-INF/updatedFilm.jsp");
+		} else {
+			mv.setViewName("WEB-INf/updatedError.jsp");
+		}
 		return mv;
 	}
 
@@ -89,5 +93,19 @@ public class FilmController {
 
 		return mv;
 	}
+	
+	@RequestMapping(path = "saveFilm.do", method = RequestMethod.POST)
+	public ModelAndView saveFilm(Film s) {
+		ModelAndView mv = new ModelAndView();
+		boolean updatedFilm = filmDAO.updateFilm(s);
+		if (updatedFilm) {
+			mv.setViewName("WEB-INF/main.jsp");
+		} else {
+			mv.setViewName("WEB-INf/deleteError.jsp");
+		}
+		
+		return mv;
+	}
+
 
 }

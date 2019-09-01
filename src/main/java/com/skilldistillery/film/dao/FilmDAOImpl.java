@@ -285,7 +285,7 @@ public class FilmDAOImpl implements FilmDAO {
 			conn.setAutoCommit(false);
 			String sql = "UPDATE film SET title=?, description=?, "
 					+ " release_year=?, language_id=?, "
-					+ " rental_duration=?, rental_rate= , "
+					+ " rental_duration=?, rental_rate=?, "
 					+ " length=?, replacement_cost=?, rating=? "
 					+ " where id=?";
 			PreparedStatement stmt = conn.prepareStatement(sql);

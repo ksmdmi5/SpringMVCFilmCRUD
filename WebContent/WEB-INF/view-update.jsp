@@ -11,7 +11,7 @@
 <title>Add New Film</title>
 </head>
 <body>
-ID: ${newFilm.id }
+ID: ${newFilm.filmId }
 ${newFilm.title}
 ${newFilm.description}
 ${newFilm.releaseYr}
