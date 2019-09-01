@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,14 +73,10 @@ public class FilmController {
 	@RequestMapping(path = "editFilm.do", method = RequestMethod.POST)
 	public ModelAndView updateFilm(Film s) {
 		ModelAndView mv = new ModelAndView();
+		filmDAO.updateFilm(s);
 		mv.addObject("updateFilm", s);
 		mv.setViewName("WEB-INF/updatedFilm.jsp");
-		boolean updatedFilm = filmDAO.updateFilm(s);
-		if (updatedFilm) {
-			mv.setViewName("WEB-INF/updatedFilm.jsp");
-		} else {
-			mv.setViewName("WEB-INf/updatedError.jsp");
-		}
+		
 		return mv;
 	}
 
@@ -88,8 +85,10 @@ public class FilmController {
 	public ModelAndView getFilmIdForm(@RequestParam("filmId") String n) {
 		int filmId = Integer.parseInt(n);
 		ModelAndView mv = new ModelAndView();
+		Film d = filmDAO.getFilmById(filmId);
+		
 		mv.setViewName("WEB-INF/editFilm.jsp");
-		mv.addObject("updateFilm", filmDAO.getFilmById(filmId));
+		mv.addObject("updateFilm", d);
 
 		return mv;
 	}
@@ -97,7 +96,9 @@ public class FilmController {
 	@RequestMapping(path = "saveFilm.do", method = RequestMethod.POST)
 	public ModelAndView saveFilm(Film s) {
 		ModelAndView mv = new ModelAndView();
+		
 		boolean updatedFilm = filmDAO.updateFilm(s);
+		mv.addObject("updateFilm", s);
 		if (updatedFilm) {
 			mv.setViewName("WEB-INF/main.jsp");
 		} else {
