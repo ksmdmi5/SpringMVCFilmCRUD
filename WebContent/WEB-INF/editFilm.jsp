@@ -16,20 +16,20 @@
 <form:form action ="editFilm.do" method="POST" modelAttribute="updateFilm">
 <table>
 <tr>
-<td></td>
+<td><form:input path="filmId" type="hidden" value="${updateFilm.filmId}"/></td>
 
 </tr>
 <tr>
 <td>Title</td>
-<td><form:input path="title"/></td>
+<td><form:input path="title" type="text" value="${updateFilm.title}"/></td>
 </tr>
 <tr>
 <td>Description</td>
-<td><form:input path="description"/></td>
+<td><form:input path="description" type="text" value="${updateFilm.description}"/></td>
 </tr>
 <tr>
 <td>Release Year</td>
-<td><form:input path="releaseYr"/></td>
+<td><form:input path="releaseYr" type="text" value="${updateFilm.releaseYr}"/></td>
 </tr>
 <%-- <tr>
 <td>Rental Duration</td>
@@ -49,7 +49,7 @@
 </tr> --%>
 <tr>
 <td>Rating</td>
-<td><form:input path="rating"/></td>
+<td><form:input path="rating" type="text" value="${updateFilm.rating}"/></td>
 </tr>
 
 <tr>
