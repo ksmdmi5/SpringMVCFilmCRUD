@@ -27,26 +27,26 @@
 <td>Description</td>
 <td><form:input path="description" type="text" value="${updateFilm.description}"/></td>
 </tr>
-<tr>
+ <tr>
 <td>Release Year</td>
 <td><form:input path="releaseYr" type="text" value="${updateFilm.releaseYr}"/></td>
 </tr>
-<%-- <tr>
+<tr>
 <td>Rental Duration</td>
-<td><form:input path="rentalDur" /></td>
+<td><form:input path="rentalDur" type="text" value="${updateFilm.rentalDur}"/></td>
 </tr>
 <tr>
 <td>Rental Rate</td>
-<td><form:input path="rentalRate" /></td>
+<td><form:input path="rentalRate" type="text" value="${updateFilm.rentalRate}"/></td>
 </tr>
 <tr>
 <td>Length</td>
-<td><form:input path="length" /></td>
+<td><form:input path="length" type="text" value="${updateFilm.length}"/></td>
 </tr>
 <tr>
 <td>Replacement Cost</td>
-<td><form:input path="replaceCost" /></td>
-</tr> --%>
+<td><form:input path="replaceCost" type="text" value="${updateFilm.replaceCost}"/></td>
+</tr>
 <tr>
 <td>Rating</td>
 <td><form:input path="rating" type="text" value="${updateFilm.rating}"/></td>

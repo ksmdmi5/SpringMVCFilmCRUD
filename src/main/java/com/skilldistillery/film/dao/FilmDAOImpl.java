@@ -281,19 +281,18 @@ public class FilmDAOImpl implements FilmDAO {
 		int uc = 0;
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
-			String sql = "UPDATE film SET title = ?, description = ?, release_year = ?, rating = ? WHERE id = ?";
+			String sql = "UPDATE film SET title = ?, description = ?, release_year = ?, rental_duration = ?, rental_rate = ?, length = ?, replacement_cost = ?, rating = ? WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setInt(3, film.getReleaseYr());
-//			stmt.setInt(4, film.getlangId());
-//			stmt.setInt(5, film.getRentalDur());
-//			stmt.setDouble(6, film.getRentalRate());
-//			stmt.setInt(7, film.getLength());
-//			stmt.setDouble(8, film.getReplaceCost());
-			stmt.setString(4, film.getRating());
-			stmt.setInt(5, film.getFilmId());
+			stmt.setInt(4, film.getRentalDur());
+			stmt.setDouble(5, film.getRentalRate());
+			stmt.setInt(6, film.getLength());
+			stmt.setDouble(7, film.getReplaceCost());
+			stmt.setString(8, film.getRating());
+			stmt.setInt(9, film.getFilmId());
 			uc = stmt.executeUpdate();
 
 			ResultSet keys = stmt.getGeneratedKeys();
