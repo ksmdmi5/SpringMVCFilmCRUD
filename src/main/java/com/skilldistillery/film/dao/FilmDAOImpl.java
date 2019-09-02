@@ -108,8 +108,7 @@ public class FilmDAOImpl implements FilmDAO {
 			String sql = "SELECT film.id, film.title, film.description, film.release_year, "
 					+ "film.language_id, film.rental_duration, ";
 			sql += " film.rental_rate, film.length, film.replacement_cost, film.rating, "
-					+ " film.special_features FROM film WHERE (title LIKE ?) OR "
-					+ " (description LIKE ?)";
+					+ " film.special_features FROM film WHERE (title LIKE ?) OR " + " (description LIKE ?)";
 			System.out.println(sql);
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, '%' + key + '%');
@@ -191,8 +190,7 @@ public class FilmDAOImpl implements FilmDAO {
 				String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, "
 						+ "rental_rate, length, replacement_cost, rating) VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?)";
 				PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				
-				
+
 				stmt.setString(1, film.getTitle());
 				stmt.setString(2, film.getDescription());
 				stmt.setInt(3, film.getReleaseYr());
@@ -239,70 +237,20 @@ public class FilmDAOImpl implements FilmDAO {
 		String pass = "student";
 		int uc = 0;
 		boolean isDeleted = true;
-			Film newFilm = null;
-			Connection conn = null;
-			int newFilmId = 0;
-			try {
-				conn = DriverManager.getConnection(url, user, pass);
-				conn.setAutoCommit(false);
-				String sql = "DELETE FROM film WHERE id = ?";
-				PreparedStatement stmt = conn.prepareStatement(sql);
-				stmt.setInt(1, filmId);
-				uc = stmt.executeUpdate();
-			} catch (SQLException e) {
-				System.err.println("Error during inserts.");
-				e.printStackTrace();
-
-				if (conn != null) {
-					try {
-						conn.rollback();
-					} catch (SQLException e1) {
-						System.err.println("Error rolling back.");
-						e1.printStackTrace();
-					}
-				}
-			} finally {
-				try {
-					conn.commit();
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-					isDeleted = false;
-				}
-			}
-			return isDeleted;
-		}
-	@Override
-	public boolean updateFilm(Film film) {
-		String user = "student";
-		String pass = "student";
-		boolean isUpdated = true;
+		Film newFilm = null;
 		Connection conn = null;
 		int newFilmId = 0;
-		int uc = 0;
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "UPDATE film SET title=?, description=?,"
-					+ " release_year=?, rating=?"
-					+ " where id=?";
+			String sql = "DELETE FROM film WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, film.getTitle());
-			stmt.setString(2, film.getDescription());
-			stmt.setInt(3, film.getReleaseYr());
-//			stmt.setInt(4, film.getlangId());
-//			stmt.setInt(5, film.getRentalDur());
-//			stmt.setDouble(6, film.getRentalRate());
-//			stmt.setInt(7, film.getLength());
-//			stmt.setDouble(8, film.getReplaceCost());
-			stmt.setString(4, film.getRating());
-			stmt.setInt(5, film.getFilmId());
-			 uc = stmt.executeUpdate();
-			
+			stmt.setInt(1, filmId);
+			uc = stmt.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("Error during inserts.");
 			e.printStackTrace();
-			
+
 			if (conn != null) {
 				try {
 					conn.rollback();
@@ -317,10 +265,51 @@ public class FilmDAOImpl implements FilmDAO {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				isUpdated = false;
+				isDeleted = false;
 			}
 		}
-		return isUpdated;
-	}
+		return isDeleted;
 	}
 
+	@Override
+	public Film updateFilm(Film film) {
+		String user = "student";
+		String pass = "student";
+		Film edited = new Film();
+		Connection conn = null;
+		int newFilmId = 0;
+		int uc = 0;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
+			String sql = "UPDATE film SET title = ?, description = ?," + " release_year = ?, rating = ? WHERE id =?";
+
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYr());
+//			stmt.setInt(4, film.getlangId());
+//			stmt.setInt(5, film.getRentalDur());
+//			stmt.setDouble(6, film.getRentalRate());
+//			stmt.setInt(7, film.getLength());
+//			stmt.setDouble(8, film.getReplaceCost());
+			stmt.setString(4, film.getRating());
+			stmt.setInt(5, film.getFilmId());
+			uc = stmt.executeUpdate();
+
+			ResultSet keys = stmt.getGeneratedKeys();
+			if (keys.next()) {
+				newFilmId = keys.getInt(1);
+			}
+
+			conn.commit();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("Error during inserts.");
+			e.printStackTrace();
+
+		}
+		edited = getFilmById(newFilmId);
+		return edited;
+	}
+}

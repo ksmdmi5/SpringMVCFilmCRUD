@@ -21,15 +21,15 @@
 </tr>
 <tr>
 <td>Title</td>
-<td><form:input path="title" value="${updateFilm.title}"/></td>
+<td><form:input path="title"/></td>
 </tr>
 <tr>
 <td>Description</td>
-<td><form:input path="description" value="${updateFilm.description}"/></td>
+<td><form:input path="description"/></td>
 </tr>
 <tr>
 <td>Release Year</td>
-<td><form:input path="releaseYr" value="${updateFilm.releaseYr}"/></td>
+<td><form:input path="releaseYr"/></td>
 </tr>
 <%-- <tr>
 <td>Rental Duration</td>
@@ -49,7 +49,7 @@
 </tr> --%>
 <tr>
 <td>Rating</td>
-<td><form:input path="rating" value="${updateFilm.rating}"/></td>
+<td><form:input path="rating"/></td>
 </tr>
 
 <tr>

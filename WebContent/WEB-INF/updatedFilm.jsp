@@ -15,17 +15,13 @@ Film Updated
 <br>
 <table>
 <tr>
-<td>${updateFilm.title}</td>
-<td>${updateFilm.description}</td>
-<td>${updateFilm.releaseYr}</td>
-<td>${updateFilm.rating}</td>
+<td>${updated.title}</td>
+<td>${updated.description}</td>
+<td>${updated.releaseYr}</td>
+<td>${updated.rating}</td>
 </tr>
 </table>
-<form:form action="saveFilm.do" method="POST" modelAttribute="updateFilm">
 
-		<input type="submit" value="SAVE FILM"/>
-	</form:form>
-<br>
 
 
 

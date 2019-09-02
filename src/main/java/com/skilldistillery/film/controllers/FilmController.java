@@ -73,8 +73,9 @@ public class FilmController {
 	@RequestMapping(path = "editFilm.do", method = RequestMethod.POST)
 	public ModelAndView updateFilm(Film s) {
 		ModelAndView mv = new ModelAndView();
-		filmDAO.updateFilm(s);
-		mv.addObject("updateFilm", s);
+		System.out.println(s.toString());
+		Film update = filmDAO.updateFilm(s);
+		mv.addObject("updated", update);
 		mv.setViewName("WEB-INF/updatedFilm.jsp");
 		
 		return mv;
@@ -93,20 +94,7 @@ public class FilmController {
 		return mv;
 	}
 	
-	@RequestMapping(path = "saveFilm.do", method = RequestMethod.POST)
-	public ModelAndView saveFilm(Film s) {
-		ModelAndView mv = new ModelAndView();
-		
-		boolean updatedFilm = filmDAO.updateFilm(s);
-		mv.addObject("updateFilm", s);
-		if (updatedFilm) {
-			mv.setViewName("WEB-INF/main.jsp");
-		} else {
-			mv.setViewName("WEB-INf/deleteError.jsp");
-		}
-		
-		return mv;
-	}
+	
 
 
 }
