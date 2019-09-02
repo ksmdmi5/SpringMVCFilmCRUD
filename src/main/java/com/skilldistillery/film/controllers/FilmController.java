@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.film.dao.FilmDAO;
+import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
 @Controller
@@ -27,7 +28,9 @@ public class FilmController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/main.jsp");
 		mv.addObject("film", filmDAO.getFilmById(filmId));
-
+		List <Actor> a = filmDAO.findActorByFilm(filmId);
+		mv.addObject("actor", a);
+		
 		return mv;
 	}
 
