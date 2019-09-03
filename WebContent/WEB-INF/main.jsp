@@ -9,6 +9,7 @@
 <title>Films</title>
 </head>
 <body>
+<div style="border:3px; border-style:solid; border-color:#FF0000; padding:1em;">
 	<c:choose>
 		<c:when test="${! empty film }">
 			<h2>${film.title}</h2>
@@ -22,12 +23,16 @@
 				<li>Film Length: ${film.length } minutes</li>
 				<li>Replacement Cost: $ ${film.replaceCost }</li>
 				<li>Film Rating: ${film.rating }</li>
-				<li>Starring: <br> 
-						<c:forEach items="${film.actors}" var="actor">
-							<tr>
-								<td>${actor.firstName} ${actor.lastName}<br></td>
-							</tr>
-						</c:forEach>
+
+				<li>Starring: <br>
+							<c:forEach items="${film.actors}" var="actor">
+								<tr>
+									<td>${actor.firstName}${actor.lastName}<br></td>
+								</tr>
+							</c:forEach>
+				
+
+		
 				<li>Category: ${film.category }</li>
 			</ul>
 		</c:when>
@@ -35,6 +40,7 @@
 			<div class="alert alert-primary" role="alert">Film not found.</div>
 		</c:otherwise>
 	</c:choose>
+	</div>
 	<br>
 	<form action="updateForm.do" method="GET">
 		Update Film<br> <input type="text" name="filmId"
