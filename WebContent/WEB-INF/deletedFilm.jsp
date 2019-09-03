@@ -7,7 +7,7 @@
 <title>Deleted Film</title>
 </head>
 <body>
-Deleted
+Film Deleted:
 
 <a href="index.html">Return home.</a>
 

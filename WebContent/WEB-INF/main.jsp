@@ -9,26 +9,47 @@
 <title>Films</title>
 </head>
 <body>
-
-	${film.filmId}
-	<br> ${film.title} ${film.releaseYr}
-	<br> ${film.description}
-	<br>
-	<c:forEach items="${actors}" var="actor">
-	<li>${actor.firstName}</li>
-	<li>${actor.lastName}</li>
-	</c:forEach>
+	<c:choose>
+		<c:when test="${! empty film }">
+			<h2>${film.title}</h2>
+			<ul>
+				<li>Film ID: ${film.filmId}</li>
+				<li>Summary: ${film.description}</li>
+				<li>Release Year: ${film.releaseYr}</li>
+				<li>Language ID: ${film.langId }</li>
+				<li>Rental Duration: ${film.rentalDur }</li>
+				<li>Rental Rate: $ ${film.rentalRate }</li>
+				<li>Film Length: ${film.length } minutes</li>
+				<li>Replacement Cost: $ ${film.replaceCost }</li>
+				<li>Film Rating: ${film.rating }</li>
+				<li>Starring: <br> <c:choose>
+						<c:when test="${! empty actors }">
+							<c:forEach items="${actors}" var="actor">
+								<tr>
+									<td>${actor.firstName}${actor.lastName}<br></td>
+								</tr>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+				</li>
+				<li>Category: ${film.category }</li>
+			</ul>
+		</c:when>
+		<c:otherwise>
+			<div class="alert alert-primary" role="alert">Film not found.</div>
+		</c:otherwise>
+	</c:choose>
 	<br>
 	<form action="updateForm.do" method="GET">
-		*** UPDATE THIS FILM *** <br> <input type="text" name="filmId"
+		Update Film<br> <input type="text" name="filmId"
 			value="${film.filmId}" /> <input type="submit"
 			value="Update Film Information" />
 	</form>
 	<br>
 
 	<form action="deleteFilm.do" method="POST">
-		Enter Film ID to Delete: <input type="text" name="filmId" /> <input
-			type="submit" value="Submit Id" />
+		Delete Film: <input type="hidden" value="${film.filmId }" name="filmId" /> 
+		<input type="submit" value="Submit" />
 	</form>
 	<a href="index.html">Return home.</a>
 </body>

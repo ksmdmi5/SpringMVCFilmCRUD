@@ -18,18 +18,18 @@
 					<li>${film.description }</li>
 					<li>Cast:</li>
 					<c:forEach items="${film.actors}" var="actor">
-						<p>${actor.getFirstName()} ${actor.getLastName()}</p>
+						<p>${actor.getFirstName()}${actor.getLastName()}</p>
 					</c:forEach>
 					<li>${film.category }</li>
 					<form action="GetFilmById.do">
-					<input type="hidden" value="${film.filmId }" name="fId"/>
+						<input type="hidden" value="${film.filmId }" name="fId" />
 					</form>
 				</c:forEach>
 			</ul>
 			<a href="index.html">Return home.</a>
 		</c:when>
 		<c:otherwise>
-			<p>No film found.</p>
+			<h2>No film found for this word.</h2>
 		</c:otherwise>
 	</c:choose>
 </body>

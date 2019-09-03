@@ -11,16 +11,36 @@
 <title>Add New Film</title>
 </head>
 <body>
-ID: ${newFilm.filmId }
-${newFilm.title}
-${newFilm.description}
-${newFilm.releaseYr}
-${newFilm.rating }
-${newFilm.rentalDur }
-${newFilm.rentalRate }
-${newFilm.length }
-${newFilm.replaceCost }
-${newFilm.category }
-
+<c:choose>
+		<c:when test="${! empty film }">
+			<h2>${film.title}</h2>
+			<ul>
+				<li>Film ID: ${film.filmId}</li>
+				<li>Summary: ${film.description}</li>
+				<li>Release Year: ${film.releaseYr}</li>
+				<li>Language ID: ${film.langId }</li>
+				<li>Rental Duration: ${film.rentalDur }</li>
+				<li>Rental Rate: $ ${film.rentalRate }</li>
+				<li>Film Length: ${film.length } minutes</li>
+				<li>Replacement Cost: $ ${film.replaceCost }</li>
+				<li>Film Rating: ${film.rating }</li>
+				<li>Starring: <br> <c:choose>
+						<c:when test="${! empty actors }">
+							<c:forEach items="${actors}" var="actor">
+								<tr>
+									<td>${actor.firstName}${actor.lastName}<br></td>
+								</tr>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+				</li>
+				<li>Category: ${film.category }</li>
+			</ul>
+		</c:when>
+		<c:otherwise>
+			<p> Film not found.</p>
+		</c:otherwise>
+	</c:choose>
+<a href="index.html">Return home.</a>
 </body>
 </html>
