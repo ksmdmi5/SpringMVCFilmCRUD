@@ -14,13 +14,14 @@
 	<c:choose>
 		<c:when test="${! empty film }">
 			<h2>${film.title}</h2>
+			<p>Film database updated.</p>
 			<ul>
-				<li>Film ID: ${film.filmId}</li>
+				<%-- <li>Film ID: ${film.filmId}</li> --%>
 				<li>Summary: ${film.description}</li>
 				<li>Release Year: ${film.releaseYr}</li>
 				<li>Language ID: ${film.langId }</li>
 				<li>Rental Duration: ${film.rentalDur }</li>
-				<li>Rental Rate: $ ${film.rentalRate }</li>
+				<li>Rental Rate: $${film.rentalRate }</li>
 				<li>Film Length: ${film.length } minutes</li>
 				<li>Replacement Cost: $ ${film.replaceCost }</li>
 				<li>Film Rating: ${film.rating }</li>
