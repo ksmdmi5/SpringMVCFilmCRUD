@@ -134,7 +134,7 @@ public class FilmDAOImpl implements FilmDAO {
 				film = new Film(filmId, title, description, releaseYr, langId, rentalDur, rentalRate, length,
 						replaceCost, rating, specFeatures, actors, category);
 				films.add(film);
-//				System.out.println(film);
+				System.out.println(film);
 			}
 			rs.close();
 			stmt.close();

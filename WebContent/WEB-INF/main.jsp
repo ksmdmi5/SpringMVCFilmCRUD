@@ -22,16 +22,20 @@
 				<li>Film Length: ${film.length } minutes</li>
 				<li>Replacement Cost: $ ${film.replaceCost }</li>
 				<li>Film Rating: ${film.rating }</li>
-				<li>Starring: <br> <c:choose>
-						<c:when test="${! empty actors }">
-							<c:forEach items="${actors}" var="actor">
-								<tr>
-									<td>${actor.firstName}${actor.lastName}<br></td>
-								</tr>
-							</c:forEach>
-						</c:when>
-					</c:choose>
-				</li>
+				<li>Starring:</li>
+				<%-- <c:choose>
+					<c:when test="${! empty actor }"> --%>
+						<c:forEach items="${actor}" var="actor">
+							<tr>
+								<td>${actor.firstName} ${actor.lastName}<br></td>
+							</tr>
+						</c:forEach>
+	<%-- 				</c:when>
+					<c:otherwise>
+						<p>No Actors found.</p>
+					</c:otherwise>
+				</c:choose> --%>
+
 				<li>Category: ${film.category }</li>
 			</ul>
 		</c:when>
@@ -48,8 +52,8 @@
 	<br>
 
 	<form action="deleteFilm.do" method="POST">
-		Delete Film: <input type="hidden" value="${film.filmId }" name="filmId" /> 
-		<input type="submit" value="Submit" />
+		Delete Film: <input type="hidden" value="${film.filmId }"
+			name="filmId" /> <input type="submit" value="Submit" />
 	</form>
 	<a href="index.html">Return home.</a>
 </body>

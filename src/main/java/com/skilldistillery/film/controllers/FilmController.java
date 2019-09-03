@@ -21,15 +21,16 @@ public class FilmController {
 	@Autowired
 	private FilmDAO filmDAO;
 
-	@RequestMapping(path = "GetFilmById.do", params = "filmId", method = RequestMethod.GET)
+	@RequestMapping(path = "GetFilmById.do", 
+			params = "filmId", method = RequestMethod.GET)
 
 	public ModelAndView getFilmId(@RequestParam("filmId") String n) {
 		int filmId = Integer.parseInt(n);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/main.jsp");
 		mv.addObject("film", filmDAO.getFilmById(filmId));
-		List <Actor> a = filmDAO.findActorByFilm(filmId);
-		mv.addObject("actor", a);
+//		List <Actor> a = 
+		mv.addObject("actor", filmDAO.findActorByFilm(filmId));
+		mv.setViewName("WEB-INF/main.jsp");
 		
 		return mv;
 	}
