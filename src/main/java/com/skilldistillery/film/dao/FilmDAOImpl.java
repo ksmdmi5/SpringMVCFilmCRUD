@@ -181,10 +181,10 @@ public class FilmDAOImpl implements FilmDAO {
 	public Film addNewFilm(Film film) {
 		String user = "student";
 		String pass = "student";
+		Film newFilm = null;
+		Connection conn = null;
+		int newFilmId = 0;
 		{
-			Film newFilm = null;
-			Connection conn = null;
-			int newFilmId = 0;
 			try {
 				conn = DriverManager.getConnection(url, user, pass);
 				conn.setAutoCommit(false);
@@ -205,7 +205,7 @@ public class FilmDAOImpl implements FilmDAO {
 
 				ResultSet keys = stmt.getGeneratedKeys();
 				if (keys.next()) {
-					int newId = keys.getInt(1);
+					newFilmId = keys.getInt(1);
 
 				}
 			} catch (SQLException e) {
@@ -229,7 +229,7 @@ public class FilmDAOImpl implements FilmDAO {
 				}
 			}
 		}
-		return film;
+		return newFilm;
 	}
 
 	@Override

@@ -13,26 +13,26 @@
 <body>
 	<c:choose>
 		<c:when test="${! empty film }">
-			<h2>${film.title}</h2>
+			<h2>${newFilm.title}</h2>
 			<p>Film database updated.</p>
 			<ul>
-				<%-- <li>Film ID: ${film.filmId}</li> --%>
-				<li>Summary: ${film.description}</li>
-				<li>Release Year: ${film.releaseYr}</li>
-				<li>Language ID: ${film.langId }</li>
-				<li>Rental Duration: ${film.rentalDur }</li>
-				<li>Rental Rate: $${film.rentalRate }</li>
-				<li>Film Length: ${film.length } minutes</li>
-				<li>Replacement Cost: $ ${film.replaceCost }</li>
-				<li>Film Rating: ${film.rating }</li>
-				<li>Starring: <br> <c:forEach items="${film.actors}"
+				<li>Film ID: ${film.filmId}</li>
+				<li>Summary: ${newFilm.description}</li>
+				<li>Release Year: ${newFilm.releaseYr}</li>
+				<li>Language ID: ${newFilm.langId }</li>
+				<li>Rental Duration: ${newFilm.rentalDur }</li>
+				<li>Rental Rate: $${newFilm.rentalRate }</li>
+				<li>Film Length: ${newFilm.length } minutes</li>
+				<li>Replacement Cost: $${newFilm.replaceCost }</li>
+				<li>Film Rating: ${newFilm.rating }</li>
+				<li>Starring: <br> <c:forEach items="${newFilm.actors}"
 						var="actor">
 						<tr>
 							<td>${actor.firstName} ${actor.lastName}<br></td>
 						</tr>
 					</c:forEach>
 				</li>
-				<li>Category: ${film.category }</li>
+				<li>Category: ${newFilm.category }</li>
 			</ul>
 		</c:when>
 		<c:otherwise>

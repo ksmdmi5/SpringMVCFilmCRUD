@@ -43,7 +43,7 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "AddFilm.do", method = RequestMethod.GET)
-	public ModelAndView addNewFilm() {
+	public ModelAndView addNewFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
 		Film f = new Film();
 		mv.addObject("newFilm", f);
