@@ -23,6 +23,7 @@
 				<li>Film Length: ${film.length } minutes</li>
 				<li>Replacement Cost: $ ${film.replaceCost }</li>
 				<li>Film Rating: ${film.rating }</li>
+
 				<li>Starring: <br>
 							<c:forEach items="${film.actors}" var="actor">
 								<tr>
@@ -30,6 +31,8 @@
 								</tr>
 							</c:forEach>
 				
+
+		
 				<li>Category: ${film.category }</li>
 			</ul>
 		</c:when>
