@@ -42,12 +42,15 @@
 			value="Update Film Information" />
 	</form>
 	<br>
-
+	<div>
+	**Delete feature only works for NEW RELEASES (added films)**
 	<form action="deleteFilm.do" method="POST">
 		Delete Film: <input type="hidden" value="${film.filmId }"
 			name="filmId" /> <input type="submit" value="Submit" />
 	</form>
-	<a href="index.html">Return home.</a>
+	</div>
+	
+	<h2><a href="index.html">Return home.</a></h2>
 </body>
 
 

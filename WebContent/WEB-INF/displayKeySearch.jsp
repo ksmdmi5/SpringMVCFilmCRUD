@@ -24,6 +24,11 @@
 					<form action="GetFilmById.do">
 						<input type="hidden" value="${film.filmId }" name="fId" />
 					</form>
+						<form action="updateForm.do" method="GET">
+		Update Film<br> <input type="text" name="filmId"
+			value="${film.filmId}" /> <input type="submit"
+			value="Update Film Information" />
+	</form>
 				</c:forEach>
 			</ul>
 			<a href="index.html">Return home.</a>
