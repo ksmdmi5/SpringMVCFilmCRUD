@@ -63,6 +63,7 @@ public class FilmDAOImpl implements FilmDAO {
 				film = new Film(filmId, title, description, releaseYr, langId, rentalDur, rentalRate, length,
 						replaceCost, rating, specFeatures, actors, category);
 				System.out.println(film);
+			
 			}
 			rs.close();
 			stmt.close();
@@ -154,7 +155,7 @@ public class FilmDAOImpl implements FilmDAO {
 		String pass = "student";
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
-			String sql = "SELECT actor.id, actor.first_name, actor.last_name, "
+			String sql = "SELECT actor.id, actor.first_name, actor.last_name "
 					+ "FROM film JOIN film_actor ON film.id = film_actor.film_id "
 					+ "JOIN actor ON film_actor.actor_id = actor.id " + "WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -164,7 +165,7 @@ public class FilmDAOImpl implements FilmDAO {
 				actor = new Actor();
 				actor.setActorId(actorResult.getInt("actor.id"));
 				actor.setFirstName(actorResult.getString("actor.first_name"));
-				actor.setFirstName(actorResult.getString("actor.last_name"));
+				actor.setLastName(actorResult.getString("actor.last_name"));
 				actors.add(actor);
 			}
 			actorResult.close();

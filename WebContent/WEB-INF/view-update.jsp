@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- TODO: Add the @taglib for form -->
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -11,7 +11,7 @@
 <title>Add New Film</title>
 </head>
 <body>
-<c:choose>
+	<c:choose>
 		<c:when test="${! empty film }">
 			<h2>${film.title}</h2>
 			<ul>
@@ -26,21 +26,23 @@
 				<li>Film Rating: ${film.rating }</li>
 				<li>Starring: <br> <c:choose>
 						<c:when test="${! empty actors }">
-							<c:forEach items="${actors}" var="actor">
+							<c:forEach items="${film.actors}" var="actor">
 								<tr>
 									<td>${actor.firstName}${actor.lastName}<br></td>
 								</tr>
 							</c:forEach>
 						</c:when>
-					</c:choose>
+					</c:choose> <c:otherwise>
+					No actors found.
+					</c:otherwise>
 				</li>
 				<li>Category: ${film.category }</li>
 			</ul>
 		</c:when>
 		<c:otherwise>
-			<p> Film not found.</p>
+			<p>Film not found.</p>
 		</c:otherwise>
 	</c:choose>
-<a href="index.html">Return home.</a>
+	<a href="index.html">Return home.</a>
 </body>
 </html>
