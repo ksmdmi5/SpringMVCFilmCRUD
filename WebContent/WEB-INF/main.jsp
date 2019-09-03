@@ -22,16 +22,14 @@
 				<li>Film Length: ${film.length } minutes</li>
 				<li>Replacement Cost: $ ${film.replaceCost }</li>
 				<li>Film Rating: ${film.rating }</li>
-				<li>Starring: <br> <c:choose>
-						<c:when test="${! empty actors }">
-							<c:forEach items="${actors}" var="actor">
+				<li>Starring: <br>
+							<c:forEach items="${film.actors}" var="actor">
 								<tr>
-									<td>${actor.firstName}${actor.lastName}<br></td>
+									<td>${actor.firstName}  ${actor.lastName}<br></td>
 								</tr>
 							</c:forEach>
-						</c:when>
-					</c:choose>
-				</li>
+						
+			
 				<li>Category: ${film.category }</li>
 			</ul>
 		</c:when>

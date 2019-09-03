@@ -28,8 +28,7 @@ public class FilmController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/main.jsp");
 		mv.addObject("film", filmDAO.getFilmById(filmId));
-		List <Actor> a = filmDAO.findActorByFilm(filmId);
-		mv.addObject("actor", a);
+	
 		
 		return mv;
 	}
