@@ -135,7 +135,7 @@ public class FilmDAOImpl implements FilmDAO {
 				film = new Film(filmId, title, description, releaseYr, langId, rentalDur, rentalRate, length,
 						replaceCost, rating, specFeatures, actors, category);
 				films.add(film);
-//				System.out.println(film);
+				System.out.println(film);
 			}
 			rs.close();
 			stmt.close();
@@ -165,7 +165,7 @@ public class FilmDAOImpl implements FilmDAO {
 				actor = new Actor();
 				actor.setActorId(actorResult.getInt("actor.id"));
 				actor.setFirstName(actorResult.getString("actor.first_name"));
-				actor.setFirstName(actorResult.getString("actor.last_name"));
+				actor.setLastName(actorResult.getString("actor.last_name"));
 				actors.add(actor);
 			}
 			actorResult.close();

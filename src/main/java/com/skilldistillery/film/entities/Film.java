@@ -15,6 +15,8 @@ public class Film {
 	private String rating;
 	private String specFeatures;
 	private List<Actor> actors;
+	private String language;
+	private String category;
 	
 	
 	public Film() {}
@@ -159,7 +161,7 @@ public class Film {
 	public void setRating(String rating) {
 		this.rating = rating;
 	}
-	private String language;
+	
 	public String getLanguage() {
 		return language;
 	}
@@ -175,8 +177,6 @@ public class Film {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-
-	private String category;
 
 	@Override
 	public int hashCode() {

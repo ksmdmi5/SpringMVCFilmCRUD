@@ -22,14 +22,17 @@
 				<li>Film Length: ${film.length } minutes</li>
 				<li>Replacement Cost: $ ${film.replaceCost }</li>
 				<li>Film Rating: ${film.rating }</li>
-				<li>Starring: <br>
+				<li>Starring: <br> <c:choose>
+						<c:when test="${! empty actors }">
 							<c:forEach items="${film.actors}" var="actor">
 								<tr>
-									<td>${actor.firstName}  ${actor.lastName}<br></td>
+									<td>${actor.firstName}${actor.lastName}<br></td>
 								</tr>
 							</c:forEach>
-						
-			
+						</c:when>
+					</c:choose> <c:otherwise>
+					No actors found.
+					</c:otherwise>
 				<li>Category: ${film.category }</li>
 			</ul>
 		</c:when>
@@ -47,8 +50,8 @@
 	<div>
 	**Delete feature only works for NEW RELEASES (added films)**
 	<form action="deleteFilm.do" method="POST">
-		Delete Film: <input type="hidden" value="${film.filmId }" name="filmId" /> 
-		<input type="submit" value="Submit" />
+		Delete Film: <input type="hidden" value="${film.filmId }"
+			name="filmId" /> <input type="submit" value="Submit" />
 	</form>
 	</div>
 	
